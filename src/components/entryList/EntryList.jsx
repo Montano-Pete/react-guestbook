@@ -2,18 +2,16 @@ import useEntry from '../../hooks/useEntry';
 import Entry from '../entry/Entry';
 
 function EntryList() {
-  const { entries } = useEntry();
+  const { entry } = useEntry();
 
   return (
-    <>
-      <ul>
-        {entries.map((entry) => (
-          <li key={`${entry.name}`}>
-            <Entry entry={entry} />
-          </li>
-        ))}
-      </ul>
-    </>
+    <ul>
+      {entry.map((entry) => (
+        <li key={`${entry.name}`}>
+          <Entry entry={entry} />
+        </li>
+      ))}
+    </ul>
   );
 }
 

@@ -5,7 +5,7 @@ import useUser from '../../hooks/useUser';
 function Guestbook() {
   const [name, setName] = useState('');
   const [guestEntry, setGuestEntry] = useState('');
-  const { entries, setEntries } = useEntry();
+  const { entry, setEntry } = useEntry();
   const { user, setUser } = useUser();
 
   function updateGuestName() {
@@ -13,7 +13,7 @@ function Guestbook() {
       alert('Please write an entry!');
     } else {
       setUser(name);
-      setEntries([...entries, { name, message: guestEntry }]);
+      setEntry([...entry, { name, message: guestEntry }]);
       setGuestEntry('');
     }
   }
@@ -62,7 +62,7 @@ function Guestbook() {
               setName('');
             }}
           >
-            Not {user} ❓
+            Not {user}?
           </button>
         )}
       </form>
