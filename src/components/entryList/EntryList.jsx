@@ -1,3 +1,4 @@
+import React from 'react';
 import useEntry from '../../hooks/useEntry';
 import Entry from '../entry/Entry';
 
