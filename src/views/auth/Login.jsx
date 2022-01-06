@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import useForm from '../../hooks/useForm';
+import useUser from '../../hooks/useUser';
 
 function Login() {
   const history = useHistory();
@@ -11,13 +12,15 @@ function Login() {
   const { formState, handleFormChange } = useForm({ email: '', password: '' });
   const [error, setError] = useState(null);
   const { from } = location.state || { from: { pathname: '/' } };
+  const { setUser } = useUser();
 
   const handleLogin = (event) => {
     event.preventDefault();
     const loginWasSuccessful = auth.login(formState.email, formState.password);
 
     if (loginWasSuccessful) {
-      history.replace(from);
+      setUser(formState.email);
+      history.replace(from.pathname);
     } else {
       setError(
         'Incorrect login information. Please double-check and try again!'

@@ -1,18 +1,18 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import useEntry from '../../hooks/useEntry';
 import useUser from '../../hooks/useUser';
 
 function Guestbook() {
-  const [name, setName] = useState('');
   const [guestEntry, setGuestEntry] = useState('');
   const { entry, setEntry } = useEntry();
   const { user, setUser } = useUser();
+  const history = useHistory();
 
   function updateGuestName() {
     if (!guestEntry) {
       alert('Please write an entry!');
     } else {
-      setUser(name);
       setEntry([...entry, { name, message: guestEntry }]);
       setGuestEntry('');
     }
@@ -23,19 +23,6 @@ function Guestbook() {
     updateGuestName();
   };
 
-  const guestNameInput = (
-    <>
-      <label htmlFor="guestName">Guest Name</label>
-      <input
-        id="guestName"
-        type="text"
-        placeholder="Guest Name"
-        value={name}
-        onChange={(event) => setName(event.target.value)}
-      />
-    </>
-  );
-
   const displayMessage = user
     ? `Thanks for signing ${user}.`
     : 'Please Sign the Guestbook!';
@@ -44,7 +31,6 @@ function Guestbook() {
     <>
       <h1>{displayMessage}</h1>
       <form onSubmit={handleSubmit}>
-        {user ? null : guestNameInput}
         <label htmlFor="guestEntry">Guest Entry</label>
         <textarea
           id="guestEntry"
@@ -59,7 +45,7 @@ function Guestbook() {
             type="button"
             onClick={() => {
               setUser('');
-              setName('');
+              history.push('/login');
             }}
           >
             Not {user}?
